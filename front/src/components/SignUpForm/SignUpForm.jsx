@@ -3,6 +3,7 @@ import { Form, Input, Icon, Button } from 'antd';
 import './SignUpForm.scss';
 
 const SignUpForm = () => {
+
   return (
     <Form className="signup">
       <Form.Item>
