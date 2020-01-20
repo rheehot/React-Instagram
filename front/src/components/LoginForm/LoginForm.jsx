@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input, Icon, Button } from 'antd';
+import { Link } from 'react-router-dom';
 import './LoginForm.scss';
 
 const LoginForm = () => {
@@ -27,11 +28,13 @@ const LoginForm = () => {
         </Button>
       </Form.Item>
       <Form.Item>
-        <Button 
-          className="login__button login__button--secondary" 
-          type="secondary">
-          회원가입
-        </Button>
+        <Link to='/signup'>
+          <Button 
+            className="login__button login__button--secondary" 
+            type="secondary">
+            회원가입
+          </Button> 
+        </Link>         
       </Form.Item>
     </Form>
   )
