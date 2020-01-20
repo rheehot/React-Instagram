@@ -5,7 +5,7 @@ import './SignUpForm.scss';
 const SignUpForm = () => {
   return (
     <Form className="signup">
-      <Form.Item className="signup__item">
+      <Form.Item>
         <Input
           prefix={<Icon type="user" />}
           placeholder="아이디"
@@ -18,7 +18,7 @@ const SignUpForm = () => {
           placeholder="비밀번호"
         />
       </Form.Item>
-      <Form.Item className="signup__item">
+      <Form.Item>
         <Input
           prefix={<Icon type="robot" />}
           placeholder="닉네임"
@@ -26,7 +26,6 @@ const SignUpForm = () => {
       </Form.Item>
       <Form.Item>
         <Button 
-          className="signup__button" 
           type="primary">
           회원가입
         </Button> 
