@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 
-const SIGNUP_REQUEST = 'signup/SIGNUP_REQUEST';
+export const SIGNUP_REQUEST = 'signup/SIGNUP_REQUEST';
 const SIGNUP_SUCCESS = 'signup/SIGNUP_SUCCESS';
 const SIGNUP_FAILURE = 'signup/SIGNUP_FAILURE';
 
@@ -21,7 +21,7 @@ const reducer = handleActions({
   }),
 
   SIGNUP_FAILURE: (state, action) => ({
-    signUpError: action.payload,
+    signUpError: action.payload.error,
     signUpLoading: false,
   }),
 }, initialState);

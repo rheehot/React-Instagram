@@ -4,5 +4,13 @@ import App from './App';
 import 'antd/dist/antd.css';
 import 'reset-css';
 import './index.css';
+import createStore from './redux/create';
+import { Provider } from 'react-redux';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore();
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
