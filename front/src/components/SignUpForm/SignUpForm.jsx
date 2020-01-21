@@ -1,57 +1,59 @@
-import React, { useState } from 'react';
-import { Form, Input, Icon, Button } from 'antd';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { Form, Button, Input, Icon } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUpRequest } from '../../redux/modules/signup';
 import './SignUpForm.scss';
+import fields from './signUpField';
+import { useForm } from 'react-hook-form';
 
 const SignUpForm = () => {
 
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-  const [nickname, setNickname] = useState('');
+  const { register, handleSubmit, errors, setValue } = useForm();
   const dispatch = useDispatch();
+  const signUpLoading = useSelector(state => state.signup.signUpLoading);
 
-  const onChangeId = (e) => setId(e.target.value);
-  const onChangePassword = (e) => setPassword(e.target.value);
-  const onChangeNickname = (e) => setNickname(e.target.value);
-
-  const onSignUp = (e) => {
-    e.preventDefault();
-    dispatch(signUpRequest({id, password, nickname}));
+  const onSubmit = ({id, password, nickname}) => {
+    dispatch(signUpRequest({ id, password, nickname }));
   };
 
+  useEffect(() => {
+    fields.forEach(({ name }) => {
+      register({ name }, { required: true });
+    });
+  }, [register]);
+
   return (
-    <Form onSubmit={onSignUp} className="signup">
-      <Form.Item>
-        <Input
-          onChange={onChangeId}
-          prefix={<Icon type="user" />}
-          placeholder="아이디"
-        />
-      </Form.Item>
-      <Form.Item>
-        <Input
-          onChange={onChangePassword}
-          prefix={<Icon type="lock" />}
-          type="password"
-          placeholder="비밀번호"
-        />
-      </Form.Item>
-      <Form.Item>
-        <Input
-          onChange={onChangeNickname}
-          prefix={<Icon type="robot" />}
-          placeholder="닉네임"
-        />
-      </Form.Item>
-      <Form.Item>
-        <Button
-          htmlType="submit"
-          type="primary">
-          회원가입
-        </Button> 
-      </Form.Item>
-    </Form>
+    <>
+      <Form onSubmit={handleSubmit(onSubmit)} className="signup">
+        {fields.map(({name, type, placeholder, icon}, key) => (
+          <Form.Item
+            help={!!errors[name] ? `${placeholder}를 입력하세요` : null}
+            validateStatus={errors[name] ? 'error' : 'success'}
+            hasFeedback
+            key={key}
+          >
+            <Input
+              name={name}
+              type={type}
+              disabled={signUpLoading}
+              placeholder={placeholder}
+              onChange={(e) => { setValue(name, e.target.value, true) }}
+              prefix={<Icon type={icon} />}
+              ref={register({ required: true })}
+            />
+          </Form.Item>
+        ))}
+        <Form.Item>
+          <Button
+            htmlType="submit"
+            disabled={signUpLoading}
+            type="primary">
+            회원가입
+          </Button> 
+        </Form.Item>
+      </Form>
+      {signUpLoading ? <Icon type="loading" /> : null}
+    </>
   )
 };
 
