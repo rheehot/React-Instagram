@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true
     },
     post_photo: {
-      type: "BLOB",
+      type: DataTypes.STRING(45),
       allowNull: false
     },
     post_content: {
