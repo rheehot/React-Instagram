@@ -1,35 +1,33 @@
 import { createAction, handleActions } from 'redux-actions';
+import { Map } from 'immutable';
 
 export const SIGNUP_REQUEST = 'signup/SIGNUP_REQUEST';
 const SIGNUP_SUCCESS = 'signup/SIGNUP_SUCCESS';
 const SIGNUP_FAILURE = 'signup/SIGNUP_FAILURE';
-const SIGNUP_COMPLETE = 'signup/SIGNUP_COMPLETE';
+const SIGNUP_INIT = 'signup/SIGNUP_INIT';
 
-const initialState = {
+const initialState = Map({
   signUpSuccess: false,
   signUpLoading: false,
   signUpError: null,
-};
+});
 
 const reducer = handleActions({
-  [SIGNUP_REQUEST]: (state, action) => ({
-    ...state,
-    signUpLoading: true,
-  }),
+  [SIGNUP_REQUEST]: (state, action) => (
+    state.set('signUpLoading', true)
+  ),
 
-  [SIGNUP_SUCCESS]: (state, action) => ({
-    ...state,
-    signUpSuccess: true,
-    signUpLoading: false,
-  }),
+  [SIGNUP_SUCCESS]: (state, action) => (
+    state.set('signUpLoading', false)
+      .set('signUpSuccess', true)
+  ),
 
-  [SIGNUP_FAILURE]: (state, action) => ({
-    ...state,
-    signUpError: action.payload.error,
-    signUpLoading: false,
-  }),
+  [SIGNUP_FAILURE]: (state, action) => (
+    state.set('signUpLoading', false)
+      .set('signUpError', action.payload.error)
+  ),
 
-  [SIGNUP_COMPLETE]: (state, action) => initialState,
+  [SIGNUP_INIT]: (state, action) => initialState,
 }, initialState);
 
 // id, password, nickname
@@ -38,6 +36,6 @@ export const signUpSuccess = createAction(SIGNUP_SUCCESS);
 // error message
 export const signUpFailure = createAction(SIGNUP_FAILURE);
 // completion
-export const signUpComplete = createAction(SIGNUP_COMPLETE);
+export const signUpInit = createAction(SIGNUP_INIT);
 
 export default reducer;
