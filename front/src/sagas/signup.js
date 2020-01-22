@@ -2,9 +2,8 @@ import { call, all, fork, takeLatest, put } from 'redux-saga/effects';
 import { SIGNUP_REQUEST, signUpSuccess, signUpFailure } from '../redux/modules/signup';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:5000';
 const signUpAPI = (params) => {
-  return axios.post('/signup', {
+  return axios.post('/api/auth/signup', {
     id: params.id,
     password: params.password,
     nickname: params.nickname,
@@ -13,11 +12,10 @@ const signUpAPI = (params) => {
 
 function* signUp(action) {
   try {
-    const { data } = yield call(signUpAPI, action.payload);
-    console.log(data);
+    const data = yield call(signUpAPI, action.payload);
     yield put(signUpSuccess());
   } catch (e) {
-    yield put(signUpFailure());
+    yield put(signUpFailure({ error: e }));
   }
 }
 

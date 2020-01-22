@@ -6,7 +6,9 @@ import 'reset-css';
 import './index.css';
 import createStore from './redux/create';
 import { Provider } from 'react-redux';
+import axios from 'axios';
 
+axios.defaults.baseURL = 'http://localhost:5000';
 const store = createStore();
 ReactDOM.render(
   <Provider store={store}>
