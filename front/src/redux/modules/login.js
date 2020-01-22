@@ -1,49 +1,50 @@
 import { createAction, handleActions } from 'redux-actions';
+import { Map, List } from 'immutable';
 
 export const LOGIN_REQUEST = 'login/LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'login/LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'login/LOGIN_FAILURE';
 const LOGIN_INIT = 'login/LOGIN_INIT';
 
-const initialState = {
+const initialState = Map({
   loginSuccess: false,
   loginLoading: false,
   loginError: null,
-  user: {
+  user: Map({
     name: null,
     profile: null,
     intro: null,
-    followers: [],
-    followings: [],
-    posts: [],
-  },
-};
+    followers: List([]),
+    followings: List([]),
+    posts: List([]),
+  }),
+});
 
 const reducer = handleActions({
-  [LOGIN_REQUEST]: (state, action) => ({
-    ...state,
-    loginLoading: true,
-  }),
+  [LOGIN_REQUEST]: (state, action) => (
+    state.set('loginLoading', true)
+  ),
 
-  [LOGIN_SUCCESS]: (state, action) => ({
-    ...state,
-    loginSuccess: true,
-    loginLoading: false,
-    user: {
-      name: action.payload.nickname,
+  [LOGIN_SUCCESS]: (state, action) => (
+    state.merge({
+      loginSuccess: true,
+      loginLoading: false
+    }).mergeIn(['user'], {
+      name: action.payload.name,
       profile: action.payload.profile,
       intro: action.payload.intro,
-      followers: action.payload.followers,
-      followings: action.payload.followings,
-      posts: action.payload.posts,
-    },
-  }),
+      followers: List(action.payload.followers),
+      followings: List(action.payload.followings),
+      posts: List(action.payload.posts)
+    })
+  ),
 
-  [LOGIN_FAILURE]: (state, action) => ({
-    ...state,
-    loginError: action.payload.error,
-    loginLoading: false,
-  }),
+  [LOGIN_FAILURE]: (state, action) => (
+    state.merge({
+      loginLoading: false,
+      loginError: action.payload.error
+    })
+  ),
 
   [LOGIN_INIT]: (state, action) => initialState,
 }, initialState);
