@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     user_profile: {
-      type: "BLOB",
+      type: DataTypes.STRING(45),
       allowNull: true
     }
   }, {
