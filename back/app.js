@@ -2,18 +2,19 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const router = require('./routes/index');
-const db = require('./models');
-db.sequelize.sync()
-  .then(() => console.log('DB connection succeeded!'))
-  .catch(err => {
-    console.log('DB connection failed!');
-    process.exit();
-  });
+const passport = require('passport');
+const passportConfig = require('./passport');
+const databaseConfig = require('./database');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(passport.initialize());
+app.use(passport.session());
+databaseConfig();
+passportConfig();
 app.use(router);
 
 const port = process.env.PORT || 5000;
