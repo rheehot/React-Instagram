@@ -1,34 +1,41 @@
+// @flow
+
 import React, { useEffect, useCallback } from 'react';
-import { Form, Button, Input, Icon, Modal } from 'antd';
+import { Form, Button, Input, Icon } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { signUpRequest, signUpInit } from '../../redux/modules/signup';
-import './SignUpForm.scss';
-import fields from './signUpField';
+import { signUpRequest, signUpInit } from 'redux/modules/signup';
 import { useForm } from 'react-hook-form';
 import { useHistory, withRouter } from 'react-router-dom';
+import ErrorModal from '../utils/ErrorModal';
+import fields from './signUpField';
+import './SignUpForm.scss';
 
 const SignUpForm = () => {
 
   const { register, handleSubmit, errors, setValue, reset} = useForm();
-  const { signUpLoading, signUpError, signUpSuccess } = useSelector(state => state.signup).toJS();
+  const { signUpLoading, signUpError, signUpSuccess } = useSelector(state => state.signup);
   const dispatch = useDispatch();
-  const history = useHistory();  
+  const history = useHistory();
 
-  const onSubmit = ({id, password, nickname}) => {
+  type onSubmitTypes = {
+    id: string,
+    password: string,
+    nickname: string
+  };
+
+  const onSubmit = ({id, password, nickname} : onSubmitTypes) => {
     dispatch(signUpRequest({ id, password, nickname }));
   };
 
   const showErrorModal = useCallback(() => {
-    Modal.error({
-      title: '에러',
+    ErrorModal({
       content: '회원가입에 실패했습니다.',
-      centered: true,
       onOk: () => {
         reset({
           id: '',
           password: '',
           nickname: ''
-        });
+        })
       }
     });
   }, [reset]);
@@ -48,12 +55,12 @@ const SignUpForm = () => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="signup">
-      {fields.map(({name, type, placeholder, icon}, key) => (
+      {fields.map(({id, name, type, placeholder, icon}) => (
         <Form.Item
           help={!!errors[name] ? `${placeholder}를 입력하세요` : null}
           validateStatus={errors[name] ? 'error' : 'success'}
           hasFeedback
-          key={key}
+          key={id}
         >
           <Input
             name={name}
