@@ -1,0 +1,3 @@
+{
+  "flow.pathToFlow": "${flowconfigDir}/node_modules/.bin/flow"
+}

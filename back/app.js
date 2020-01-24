@@ -11,6 +11,7 @@ const databaseConfig = require('./database');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(session({ secret: '비밀코드', resave: true, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 databaseConfig();

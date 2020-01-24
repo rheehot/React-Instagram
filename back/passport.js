@@ -15,8 +15,9 @@ module.exports = () => {
     usernameField: 'id',
     passwordField: 'password',
     session: true,
-    passReqToCallback: true,
+    passReqToCallback: false,
   }, (id, password, done) => {
+    console.log(id, password);
     users.findOne({ where: { 'user_name': id }})
       .then((user) => {
         if (!user) {
