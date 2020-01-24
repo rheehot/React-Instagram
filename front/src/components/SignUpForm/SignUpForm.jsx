@@ -7,21 +7,17 @@ import { signUpRequest, signUpInit } from 'redux/modules/signup';
 import { useForm } from 'react-hook-form';
 import { useHistory, withRouter } from 'react-router-dom';
 import ErrorModal from '../utils/ErrorModal';
-import fields from './signUpField';
+import { onSubmitTypes, stateTypes, fieldTypes } from './SignUpField';
+import fields from './SignUpField';
 import './SignUpForm.scss';
 
 const SignUpForm = () => {
 
   const { register, handleSubmit, errors, setValue, reset} = useForm();
-  const { signUpLoading, signUpError, signUpSuccess } = useSelector(state => state.signup);
+  const { signUpLoading, signUpError, signUpSuccess } : stateTypes 
+    = useSelector(state => state.signup);
   const dispatch = useDispatch();
   const history = useHistory();
-
-  type onSubmitTypes = {
-    id: string,
-    password: string,
-    nickname: string
-  };
 
   const onSubmit = ({id, password, nickname} : onSubmitTypes) => {
     dispatch(signUpRequest({ id, password, nickname }));
@@ -55,7 +51,7 @@ const SignUpForm = () => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="signup">
-      {fields.map(({id, name, type, placeholder, icon}) => (
+      {fields.map(({id, name, type, placeholder, icon} : fieldTypes) => (
         <Form.Item
           help={!!errors[name] ? `${placeholder}를 입력하세요` : null}
           validateStatus={errors[name] ? 'error' : 'success'}

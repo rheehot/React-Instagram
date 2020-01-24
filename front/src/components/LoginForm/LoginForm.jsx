@@ -6,21 +6,19 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { loginRequest } from 'redux/modules/login';
+import { onSubmitTypes, stateTypes, fieldTypes } from './LoginTypes';
 import ErrorModal from '../utils/ErrorModal';
-import fields from './loginField';
+import fields from './LoginField';
 import './LoginForm.scss';
 
 const LoginForm = () => {
 
   const { register, errors, handleSubmit, setValue, reset } = useForm();
   const dispatch = useDispatch();
-  const { loginLoading, loginError } = useSelector(state => state.login);
+  const { loginLoading, loginError } : stateTypes 
+    = useSelector(state => state.login);
 
-  type onLoginButtonTypes = {
-    id: string,
-    password: string
-  };
-  const onLoginButton = ({ id, password} : onLoginButtonTypes) => {
+  const onLoginButton = ({ id, password} : onSubmitTypes) => {
     dispatch(loginRequest({ id, password }));
   };
 
@@ -41,14 +39,6 @@ const LoginForm = () => {
       showErrorModal();
     }
   }, [loginError, showErrorModal]);
-
-  type fieldTypes = {
-    id: string,
-    name: string,
-    type: string,
-    placeholder: string,
-    icon: string
-  };
 
   return (
     <Form onSubmit={handleSubmit(onLoginButton)} className="login">
