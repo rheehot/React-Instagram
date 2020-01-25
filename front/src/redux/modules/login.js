@@ -56,7 +56,7 @@ const reducer = handleActions({
   },
 
   [LOGIN_INIT]: (state, action : LoginInitAction) => {
-    return produce(state, (draft) => draft)
+    return produce(state, (draft) => draft = initialState);
   }
 }, initialState);
 

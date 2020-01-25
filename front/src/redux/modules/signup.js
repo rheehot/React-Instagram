@@ -19,6 +19,7 @@ export const signUpInit = createAction(SIGNUP_INIT);
 type SignUpRequestAction = ActionType<typeof signUpRequest>;
 type SignUpSuccessAction = ActionType<typeof signUpSuccess>;
 type SignUpFailureAction = ActionType<typeof signUpFailure>;
+type SignUpInitAction = ActionType<typeof signUpInit>;
 
 // State type
 type SignUp = {
@@ -52,6 +53,10 @@ const reducer = handleActions({
       draft.signUpLoading = false;
       draft.signUpFailure = true;
     });
+  },
+
+  [SIGNUP_INIT]: (state, action : SignUpInitAction) => {
+    return produce(state, (draft) => draft = initialState);
   }
 }, initialState);
 
