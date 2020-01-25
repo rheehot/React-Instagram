@@ -5,7 +5,8 @@ import { Form, Input, Icon, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { loginRequest } from 'redux/modules/login';
+import { loginRequest, loginInit } from 'redux/modules/login';
+import { useHistory } from 'react-router-dom';
 import { onSubmitTypes, stateTypes, fieldTypes } from './LoginTypes';
 import ErrorModal from '../utils/ErrorModal';
 import fields from './LoginField';
@@ -14,9 +15,10 @@ import './LoginForm.scss';
 const LoginForm = () => {
 
   const { register, errors, handleSubmit, setValue, reset } = useForm();
-  const dispatch = useDispatch();
-  const { loginLoading, loginError } : stateTypes 
+  const { loginLoading, loginSuccess, loginError } : stateTypes 
     = useSelector(state => state.login);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const onLoginButton = ({ id, password} : onSubmitTypes) => {
     dispatch(loginRequest({ id, password }));
@@ -24,7 +26,7 @@ const LoginForm = () => {
 
   const showErrorModal = useCallback(() => {
     ErrorModal({
-      content: '회원가입에 실패했습니다.',
+      content: '로그인에 실패했습니다.',
       onOk: () => {
         reset({
           id: '',
@@ -39,6 +41,13 @@ const LoginForm = () => {
       showErrorModal();
     }
   }, [loginError, showErrorModal]);
+
+  useEffect(() => {
+    if (loginSuccess) {
+      dispatch(loginInit());
+      history.push('/home');
+    }
+  }, [loginSuccess, dispatch, history]);
 
   return (
     <Form onSubmit={handleSubmit(onLoginButton)} className="login">

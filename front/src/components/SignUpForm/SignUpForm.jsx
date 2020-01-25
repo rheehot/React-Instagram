@@ -5,7 +5,7 @@ import { Form, Button, Input, Icon } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUpRequest, signUpInit } from 'redux/modules/signup';
 import { useForm } from 'react-hook-form';
-import { useHistory, withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ErrorModal from '../utils/ErrorModal';
 import { onSubmitTypes, stateTypes, fieldTypes } from './SignUpField';
 import fields from './SignUpField';
@@ -85,4 +85,4 @@ const SignUpForm = () => {
   )
 };
 
-export default withRouter(SignUpForm);
+export default SignUpForm;
