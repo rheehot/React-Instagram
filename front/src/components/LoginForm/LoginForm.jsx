@@ -50,7 +50,7 @@ const LoginForm = () => {
   }, [loginSuccess, dispatch, history]);
 
   return (
-    <Form onSubmit={handleSubmit(onLoginButton)} className="login">
+    <Form onSubmit={handleSubmit(onLoginButton)} className="login-form">
       {fields.map(({ id, name, type, placeholder, icon } : fieldTypes) => (
         <Form.Item
           help={!!errors[name] ? `${placeholder}를 입력하세요` : null}
@@ -73,7 +73,7 @@ const LoginForm = () => {
       ))}
       <Form.Item>
         <Button 
-          className="login__button login__button--primary" 
+          className="login-form__button" 
           htmlType="submit" 
           loading={loginLoading}
           type="primary">
@@ -83,7 +83,7 @@ const LoginForm = () => {
       <Form.Item>
         <Link to='/signup'>
           <Button 
-            className="login__button login__button--secondary" 
+            className="login-form__button--secondary" 
             disabled={loginLoading}
             type="secondary">
             회원가입

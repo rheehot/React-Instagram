@@ -1,25 +1,23 @@
-.login {
+.login-form {
   width: 300px;
-
   .ant-form-item {
     margin-bottom: 10px;
   }
-
   &__button {
-    width: 100%;
-
-    &--primary.ant-btn {
+    $self: &;
+    &.ant-btn {
+      width: 100%;
       font-weight: bold;
+      color: white;
     }
     &--secondary.ant-btn {
-      $button-bg-secondary: rgba(0,0,0,0.8);
-      $button-color-secondary: white;
-      background-color: $button-bg-secondary;
-      color: $button-color-secondary;
+      @extend #{ $self }.ant-btn;
+      background-color: black;
+      font-weight: normal;
       &:hover {
-        border-color: transparent;
-        background-color: $button-bg-secondary;
-        color: $button-color-secondary;
+        background-color: black;
+        border: none;
+        color: white;
       }
     }
   }

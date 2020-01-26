@@ -50,7 +50,7 @@ const SignUpForm = () => {
   }, [signUpSuccess, history, dispatch]);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} className="signup">
+    <Form onSubmit={handleSubmit(onSubmit)} className="signup-form">
       {fields.map(({id, name, type, placeholder, icon} : fieldTypes) => (
         <Form.Item
           help={!!errors[name] ? `${placeholder}를 입력하세요` : null}
@@ -74,6 +74,7 @@ const SignUpForm = () => {
       ))}
       <Form.Item>
         <Button
+          className="signup-form__button"
           htmlType="submit"
           loading={signUpLoading}
           disabled={signUpLoading}
