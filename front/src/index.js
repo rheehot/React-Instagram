@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import 'antd/dist/antd.css';
 import 'reset-css';
-import './index.css';
+import './index.scss';
 import createStore from './redux/create';
 import { Provider } from 'react-redux';
 import axios from 'axios';
