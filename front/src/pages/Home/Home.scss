@@ -1,0 +1,52 @@
+.home {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  &.ant-layout-header {
+    background-color: transparent;
+    padding: 0;
+  }
+  &__user {
+    font-size: 24px;
+  }
+}
+
+.content {
+  &.ant-layout-content {
+    padding: 0 50px;
+  }
+  &__post {
+    width: 600px;
+  }
+  &__header {
+    display: flex;
+    border: 3px solid blue;
+    padding: 10px 15px;
+  }
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  &__profile {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  &__photo {
+    max-width: 100%;
+  }
+  &__footer {
+    border: 3px solid red;
+    padding: 10px 15px;
+  }
+}
