@@ -7,11 +7,15 @@ const router = require('./routes/index');
 const passport = require('passport');
 const passportConfig = require('./passport');
 const databaseConfig = require('./database');
+const bcrypt = require('bcryptjs');
+
+const secretSalt = bcrypt.genSaltSync(10);
+const secretHash = bcrypt.hashSync('secret code', secretSalt);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use(session({ secret: '비밀코드', resave: true, saveUninitialized: false }));
+app.use(session({ secret: secretHash, resave: true, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 databaseConfig();
