@@ -1,0 +1,48 @@
+@import 'styles/_mixins';
+@import 'styles/_variables';
+
+.recommend {
+  height: 300px;
+  background-color: white;
+  border: 1px solid $uni-border-color; 
+  border-radius: $uni-border-radius;
+  padding: 15px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 20px;
+    
+    h2 {
+      color: gray;
+    }
+    span {
+      color: black;
+      font-size: 14px;
+    }
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &__profile {
+      @include profile(36px);
+    }
+    &__detail {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      h3 {
+        font-weight: bold;
+        margin-bottom: 3px;
+      }
+    }
+    &__follow {
+      color: $follow-color;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+}

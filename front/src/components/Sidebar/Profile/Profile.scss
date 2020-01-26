@@ -1,0 +1,15 @@
+@import 'styles/_mixins.scss';
+
+.profile {
+  width: 300px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  &__photo {
+    @include profile(64px);
+  }
+  &__intro {
+    display: flex;
+    flex-direction: column;
+  }
+}

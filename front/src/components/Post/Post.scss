@@ -1,0 +1,26 @@
+@import 'styles/_mixins.scss';
+@import 'styles/_variables.scss';
+
+.post {
+	width: 650px;
+	background-color: $post-bg-color;
+	border: 1px solid $uni-border-color;
+	&__header {
+		display: flex;
+		padding: 10px 15px;
+	}
+	&__intro {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+	}
+	&__profile {
+		@include profile(36px);
+	}
+	&__photo {
+		max-width: 100%;
+	}
+	&__footer {
+		padding: 10px 15px;
+	}
+}
